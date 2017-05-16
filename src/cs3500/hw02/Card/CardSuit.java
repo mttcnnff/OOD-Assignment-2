@@ -1,4 +1,4 @@
-package cs3500.hw02;
+package cs3500.hw02.Card;
 
 /**
  * Type for the four types of suits in a deck of Cards. <br>

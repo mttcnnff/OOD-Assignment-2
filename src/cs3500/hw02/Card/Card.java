@@ -1,4 +1,4 @@
-package cs3500.hw02;
+package cs3500.hw02.Card;
 
 /**
  * Created by Matt on 5/14/17.

@@ -4,22 +4,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cs3500.hw02.Card.Card;
+import cs3500.hw02.Card.CardSuit;
+import cs3500.hw02.Card.CardValue;
+import cs3500.hw02.Pile.CascadePile;
+import cs3500.hw02.Pile.FoundationPile;
+import cs3500.hw02.Pile.OpenPile;
+import cs3500.hw02.Pile.Pile;
+import cs3500.hw02.Pile.PileType;
+
 /**
  * Created by Matt on 5/14/17.
  */
 public class FreecellModel implements FreecellOperations<Card>{
 
   private List<Card> deck;
-  private ArrayList<ArrayList<Card>> foundation;
-  private ArrayList<ArrayList<Card>> cascade;
-  private ArrayList<ArrayList<Card>> open;
+  private Pile foundation;
+  private Pile cascade;
+  private Pile open;
 
   @Override
   public List<Card> getDeck() {
     ArrayList<Card> cards = new ArrayList<>();
 
     for (int i = 0; i < 4; i++) {
-      for (int j = 1; j < 14; j++) {
+      for (int j = 0; j < 13; j++) {
         cards.add(new Card(CardValue.values()[j], CardSuit.values()[i]));
       }
     }
@@ -43,27 +52,20 @@ public class FreecellModel implements FreecellOperations<Card>{
     }
 
     //Build foundation piles
-    this.foundation = this.initPile(4);
-
-    //Check if cascade pile input is invalid
-    if (this.cascadePileIsInvalid(numCascadePiles)) {
-      throw new IllegalArgumentException("Number of Cascade Piles Invalid.");
-    } else {
-      this.cascade = this.initPile(numCascadePiles);
-    }
+    this.foundation = new FoundationPile();
 
     //Check if open pile input is invalid
     if (this.openPileIsInvalid(numOpenPiles)) {
       throw new IllegalArgumentException("Number of Open Piles Invalid.");
     } else {
-      this.open = this.initPile(numOpenPiles);
+      this.open = new OpenPile(numOpenPiles);
     }
 
-    //Deal cards to cascade piles
-    int dealCount = 0;
-    for(Card c : this.deck) {
-      this.cascade.get(dealCount).add(c);
-      dealCount = (dealCount + 1) % numCascadePiles;
+    //Check if cascade pile input is invalid
+    if (this.cascadePileIsInvalid(numCascadePiles)) {
+      throw new IllegalArgumentException("Number of Cascade Piles Invalid.");
+    } else {
+      this.cascade = new CascadePile(numCascadePiles, this.deck);
     }
 
   }
@@ -80,16 +82,11 @@ public class FreecellModel implements FreecellOperations<Card>{
 
   @Override
   public String getGameState() {
-    return null;
-  }
-
-  private ArrayList<ArrayList<Card>> initPile(int numPiles) {
-    ArrayList<ArrayList<Card>> pile = new ArrayList<>();
-    for(int i = 0; i < numPiles; i++) {
-      pile.add(new ArrayList<Card>());
-    }
-
-    return pile;
+    return this.foundation.getPileState()
+            + "\n"
+            + this.open.getPileState()
+            + "\n"
+            + this.cascade.getPileState();
   }
 
   private boolean deckIsInvalid(List<Card> deck) {
@@ -106,7 +103,7 @@ public class FreecellModel implements FreecellOperations<Card>{
     }
 
     //Check duplicated by number
-    for(int i = 0; i < 14; i++) {
+    for(int i = 0; i < 13; i++) {
       if (this.valueCount(CardValue.values()[i], deck) != 4) {
         return true;
       }

@@ -1,4 +1,4 @@
-package cs3500.hw02;
+package cs3500.hw02.Card;
 
 /**
  * Type for the thirteen values of cards in a deck of Cards. <br>
@@ -48,7 +48,7 @@ public enum CardValue {
 
   @Override
   public String toString() {
-    if (this.value > 1 || this.value < 11 ) {
+    if (this.value > 1 && this.value < 11 ) {
       return Integer.toString(this.value);
     } else {
       switch(this) {

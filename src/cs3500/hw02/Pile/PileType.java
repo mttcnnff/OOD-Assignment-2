@@ -1,4 +1,4 @@
-package cs3500.hw02;
+package cs3500.hw02.Pile;
 
 /**
  * Type for the three types of piles in a game of Freecell. <br>
@@ -15,5 +15,15 @@ package cs3500.hw02;
  * The goal of the game is to fill up all the foundation piles
  */
 public enum PileType {
-  OPEN, CASCADE, FOUNDATION
-};
+  OPEN, CASCADE, FOUNDATION;
+
+  @Override
+  public String toString() {
+    switch(this) {
+      case OPEN: return "O";
+      case CASCADE: return "C";
+      case FOUNDATION: return "F";
+      default: throw new IllegalArgumentException("Pile type does not exist.");
+    }
+  }
+}

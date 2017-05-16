@@ -2,6 +2,8 @@ package cs3500.hw02;
 
 import java.util.List;
 
+import cs3500.hw02.Pile.PileType;
+
 /**
  * This is the interface of the Freecell model. It is parameterized over the
  * card type, i.e. when you implement it, you can substitute K with your
