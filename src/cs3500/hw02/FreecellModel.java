@@ -88,6 +88,8 @@ public class FreecellModel implements FreecellOperations<Card>{
     for(int i = 0; i < numPiles; i++) {
       pile.add(new ArrayList<Card>());
     }
+
+    return pile;
   }
 
   private boolean deckIsInvalid(List<Card> deck) {
