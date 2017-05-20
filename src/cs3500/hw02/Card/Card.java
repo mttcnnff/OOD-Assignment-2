@@ -1,4 +1,4 @@
-package cs3500.hw02.Card;
+package cs3500.hw02.card;
 
 /**
  * Created by Matt on 5/14/17.
@@ -22,5 +22,17 @@ public class Card {
 
   public boolean isOfValue(CardValue value) {
     return this.value == value;
+  }
+
+  public boolean sameSuitAs(Card card) {
+    return this.suit == card.suit;
+  }
+
+  public boolean sameColorAs(Card card) {
+    return this.suit.sameColorAs(card.suit);
+  }
+
+  public int compare(Card card) {
+    return this.value.getCardValue() - card.value.getCardValue();
   }
 }

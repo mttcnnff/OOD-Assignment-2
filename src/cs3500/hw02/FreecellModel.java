@@ -2,26 +2,34 @@ package cs3500.hw02;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
-import cs3500.hw02.Card.Card;
-import cs3500.hw02.Card.CardSuit;
-import cs3500.hw02.Card.CardValue;
-import cs3500.hw02.Pile.CascadePile;
-import cs3500.hw02.Pile.FoundationPile;
-import cs3500.hw02.Pile.OpenPile;
-import cs3500.hw02.Pile.Pile;
-import cs3500.hw02.Pile.PileType;
+import cs3500.hw02.card.Card;
+import cs3500.hw02.card.CardSuit;
+import cs3500.hw02.card.CardValue;
+import cs3500.hw02.pile.AbstractPile;
+import cs3500.hw02.pile.CascadePile;
+import cs3500.hw02.pile.FoundationPile;
+import cs3500.hw02.pile.OpenPile;
 
 /**
  * Created by Matt on 5/14/17.
  */
-public class FreecellModel implements FreecellOperations<Card>{
+public class FreecellModel implements FreecellOperations<Card> {
 
   private List<Card> deck;
-  private Pile foundation;
-  private Pile cascade;
-  private Pile open;
+  private HashMap<PileType, AbstractPile> piles;
+  boolean gameStarted;
+
+  /**
+   * Constructor for Freecell model.
+   */
+  public FreecellModel() {
+    this.deck = new ArrayList<Card>();
+    this.piles = new HashMap<>();
+    this.gameStarted = false;
+  }
 
   @Override
   public List<Card> getDeck() {
@@ -37,12 +45,13 @@ public class FreecellModel implements FreecellOperations<Card>{
   }
 
   @Override
-  public void startGame(List<Card> deck, int numCascadePiles, int numOpenPiles, boolean shuffle) throws IllegalArgumentException {
+  public void startGame(List<Card> deck, int numCascadePiles, int numOpenPiles, boolean shuffle)
+          throws IllegalArgumentException {
 
     //Check if deck is valid
     if (this.deckIsInvalid(deck)) {
       throw new IllegalArgumentException("Deck is invalid.");
-    }else {
+    } else {
       this.deck = deck;
     }
 
@@ -51,59 +60,83 @@ public class FreecellModel implements FreecellOperations<Card>{
       Collections.shuffle(this.deck);
     }
 
+    this.piles = new HashMap<>();
+
     //Build foundation piles
-    this.foundation = new FoundationPile();
+    this.piles.put(PileType.FOUNDATION, new FoundationPile());
 
     //Check if open pile input is invalid
     if (this.openPileIsInvalid(numOpenPiles)) {
       throw new IllegalArgumentException("Number of Open Piles Invalid.");
     } else {
-      this.open = new OpenPile(numOpenPiles);
+      this.piles.put(PileType.OPEN, new OpenPile(numOpenPiles));
     }
 
     //Check if cascade pile input is invalid
     if (this.cascadePileIsInvalid(numCascadePiles)) {
       throw new IllegalArgumentException("Number of Cascade Piles Invalid.");
     } else {
-      this.cascade = new CascadePile(numCascadePiles, this.deck);
+      this.piles.put(PileType.CASCADE, new CascadePile(numCascadePiles, this.deck));
     }
+
+    this.gameStarted = true;
 
   }
 
   @Override
-  public void move(PileType source, int pileNumber, int cardIndex, PileType destination, int destPileNumber) throws IllegalArgumentException {
+  public void move(PileType source, int pileNumber, int cardIndex, PileType destination,
+                   int destPileNumber) throws IllegalArgumentException {
+    if (!this.gameStarted) {
+      throw new IllegalArgumentException("Cannot move, game is not started");
+    }
+
+    if (!this.piles.get(source).hasPile(pileNumber)) {
+      throw new IllegalArgumentException("Invalid pile Number for Source.");
+    }
+
+    if (!this.piles.get(destination).hasPile(destPileNumber)) {
+      throw new IllegalArgumentException("Invalid pile Number for Destination.");
+    }
+
+    if (!this.piles.get(source).move(pileNumber, cardIndex, this.piles.get(destination),
+            destPileNumber)) {
+      throw new IllegalArgumentException("Invalid move.");
+    }
 
   }
 
   @Override
   public boolean isGameOver() {
-    return false;
+    return this.gameStarted && this.piles.get(PileType.FOUNDATION).cardCount() == 52;
   }
 
   @Override
   public String getGameState() {
-    return this.foundation.getPileState()
+    if (!this.gameStarted) {
+      return "";
+    }
+    return this.piles.get(PileType.FOUNDATION).getPileState()
             + "\n"
-            + this.open.getPileState()
+            + this.piles.get(PileType.OPEN).getPileState()
             + "\n"
-            + this.cascade.getPileState();
+            + this.piles.get(PileType.CASCADE).getPileState();
   }
 
   private boolean deckIsInvalid(List<Card> deck) {
     //Check deck size
-    if(deck.size() != 52) {
+    if (deck.size() != 52) {
       return true;
     }
 
     //Check duplicates by suit
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       if (this.suitCount(CardSuit.values()[i], deck) != 13) {
         return true;
       }
     }
 
     //Check duplicated by number
-    for(int i = 0; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       if (this.valueCount(CardValue.values()[i], deck) != 4) {
         return true;
       }
@@ -112,11 +145,11 @@ public class FreecellModel implements FreecellOperations<Card>{
   }
 
   private boolean cascadePileIsInvalid(int numCascadePiles) {
-    return numCascadePiles < 4 || numCascadePiles > 8;
+    return numCascadePiles < 4;
   }
 
   private boolean openPileIsInvalid(int numOpenPiles) {
-    return numOpenPiles < 1 || numOpenPiles > 4;
+    return numOpenPiles < 1;
   }
 
   private int suitCount(CardSuit suit, List<Card> deckToCheck) {

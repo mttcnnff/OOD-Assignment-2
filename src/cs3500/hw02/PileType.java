@@ -1,8 +1,7 @@
-package cs3500.hw02.Pile;
+package cs3500.hw02;
 
 /**
  * Type for the three types of piles in a game of Freecell. <br>
- *
  * Open: This pile can hold only one card. It is like a buffer to temporarily
  * hold cards <br>
  * Cascade: This is a pile of face-up cards. A build within a cascade
@@ -11,7 +10,6 @@ package cs3500.hw02.Pile;
  * Foundation: Initially empty, there are 4 foundation
  * piles, one for each suit. Each foundation pile collects cards in increasing
  * order of value for one suit (Ace being the lowest). <br>
- *
  * The goal of the game is to fill up all the foundation piles
  */
 public enum PileType {
@@ -19,11 +17,15 @@ public enum PileType {
 
   @Override
   public String toString() {
-    switch(this) {
-      case OPEN: return "O";
-      case CASCADE: return "C";
-      case FOUNDATION: return "F";
-      default: throw new IllegalArgumentException("Pile type does not exist.");
+    switch (this) {
+      case OPEN:
+        return "O";
+      case CASCADE:
+        return "C";
+      case FOUNDATION:
+        return "F";
+      default:
+        throw new IllegalArgumentException("AbstractPile type does not exist.");
     }
   }
 }

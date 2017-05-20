@@ -1,9 +1,8 @@
-package cs3500.hw02.Card;
+package cs3500.hw02.card;
 
 /**
  * Type for the thirteen values of cards in a deck of Cards. <br>
  * <i>(Aces are considered low).</i>
- *
  * Ace: 1 <i>(low)</i> <br>
  * Two: 2 <br>
  * Three: 3 <br>
@@ -17,7 +16,6 @@ package cs3500.hw02.Card;
  * Jack: 11 <br>
  * Queen: 12 <br>
  * King: 13 <br>
- *
  */
 public enum CardValue {
 
@@ -48,15 +46,20 @@ public enum CardValue {
 
   @Override
   public String toString() {
-    if (this.value > 1 && this.value < 11 ) {
+    if (this.value > 1 && this.value < 11) {
       return Integer.toString(this.value);
     } else {
-      switch(this) {
-        case ace: return "A";
-        case jack: return "J";
-        case queen: return "Q";
-        case king: return "K";
-        default: throw new IllegalArgumentException("Card value does not exist.");
+      switch (this) {
+        case ace:
+          return "A";
+        case jack:
+          return "J";
+        case queen:
+          return "Q";
+        case king:
+          return "K";
+        default:
+          throw new IllegalArgumentException("card value does not exist.");
       }
     }
   }

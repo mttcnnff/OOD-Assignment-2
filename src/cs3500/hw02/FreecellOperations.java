@@ -2,8 +2,6 @@ package cs3500.hw02;
 
 import java.util.List;
 
-import cs3500.hw02.Pile.PileType;
-
 /**
  * This is the interface of the Freecell model. It is parameterized over the
  * card type, i.e. when you implement it, you can substitute K with your
@@ -12,16 +10,11 @@ import cs3500.hw02.Pile.PileType;
 public interface FreecellOperations<K> {
 
   /**
-   * Return a valid and complete deck of cards for a game of Freecell. There is no restriction imposed on the ordering of these cards in the deck.
-   *
-   * An invalid deck is defined as a deck that has one or more of these flaws:
-   * <ul>
-   *   <li>It does not have 52 cards</li>
-   *   <li>It has duplicate cards</li>
-   *   <li>It has at least one invalid card (invalid suit or invalid number)
-   *   </li>
-   * </ul>
-   *
+   * Return a valid and complete deck of cards for a game of Freecell. There is no restriction
+   * imposed on the ordering of these cards in the deck.
+   * An invalid deck is defined as a deck that has one or more of these flaws: <ul> <li>It does not
+   * have 52 cards</li> <li>It has duplicate cards</li> <li>It has at least one invalid card
+   * (invalid suit or invalid number) </li> </ul>
    * @return the deck of cards as a list
    */
   List<K> getDeck();
@@ -29,12 +22,10 @@ public interface FreecellOperations<K> {
   /**
    * Deal a new game of freecell with the given deck, with or without shuffling
    * it first. This method first verifies that the deck is valid.
-   *
    * It deals the deck among the cascade piles in roundrobin fashion. Thus if
    * there are 4 cascade piles, the 1st pile will get cards 0, 4, 8, ..., the
    * 2nd pile will get cards 1, 5, 9, ..., the 3rd pile will get cards 2, 6, 10,
    * ... and the 4th pile will get cards 3, 7, 11, ....
-   *
    * Depending on the number of cascade piles, they may have a different number
    * of cards
    *
@@ -51,21 +42,20 @@ public interface FreecellOperations<K> {
 
   /**
    * Move a card from the given source pile to the given destination pile, if
-   * the move is valid
+   * the move is valid.
    *
    * @param source         the type of the source pile see @link{PileType}
    * @param pileNumber     the pile number of the given type, starting at 0
-   * @param cardIndex      the index of the card to be moved from the source
-   *                       pile, starting at 0
+   * @param cardIndex      the index of the card to be moved from the source pile, starting at 0
    * @param destination    the type of the destination pile (see
    * @param destPileNumber the pile number of the given type, starting at 0
-   * @throws IllegalArgumentException if the move is not possible
-   * {@link PileType})
+   * @throws IllegalArgumentException if the move is not possible {@link PileType})
    */
-  void move(PileType source, int pileNumber, int cardIndex, PileType destination, int destPileNumber) throws IllegalArgumentException;
+  void move(PileType source, int pileNumber, int cardIndex, PileType destination,
+            int destPileNumber) throws IllegalArgumentException;
 
   /**
-   * Signal if the game is over or not
+   * Signal if the game is over or not.
    *
    * @return true if game is over, false otherwise
    */
@@ -92,6 +82,7 @@ public interface FreecellOperations<K> {
    * where [b] is a single blankspace, [n] is newline. Note that there is no
    * newline on the last line
    * </pre>
+   *
    * @return the formatted string as above
    */
   String getGameState();
