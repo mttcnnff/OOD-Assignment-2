@@ -2,6 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3c967f0-9842-45ac-94ae-c2c8f82fd587" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AssignmentTwo.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/PileType$1.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/PileType.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/pile/AbstractPile.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/test/OOD-Assignment-2/AbstractPileTest.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/test/OOD-Assignment-2/CardSuitTest.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/test/OOD-Assignment-2/CardTest.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/test/OOD-Assignment-2/CardValueTest.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/test/OOD-Assignment-2/FreecellModelTests.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/test/OOD-Assignment-2/PileTypeTest.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs3500/hw02/card/CardSuit.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs3500/hw02/pile/AbstractPile.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs3500/hw02/pile/CascadePile.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs3500/hw02/pile/FoundationPile.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cs3500/hw02/pile/OpenPile.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/AbstractPileTest.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/CardSuitTest.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/CardTest.java" />
@@ -12,14 +27,14 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/Pile/PileType$1.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/Pile/PileType.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/test/OOD-Assignment-2/Hw02TypeChecks.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Card/CardSuit.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/CascadePile.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/FoundationPile.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/OpenPile.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/Pile.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/Hw02TypeChecks.java" afterPath="" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Card/Card.java" afterPath="$PROJECT_DIR$/src/cs3500/hw02/card/Card.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Card/CardSuit.java" afterPath="$PROJECT_DIR$/src/cs3500/hw02/card/CardSuit.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Card/CardValue.java" afterPath="$PROJECT_DIR$/src/cs3500/hw02/card/CardValue.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/CascadePile.java" afterPath="$PROJECT_DIR$/src/cs3500/hw02/pile/CascadePile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/FoundationPile.java" afterPath="$PROJECT_DIR$/src/cs3500/hw02/pile/FoundationPile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/OpenPile.java" afterPath="$PROJECT_DIR$/src/cs3500/hw02/pile/OpenPile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/Pile.java" afterPath="$PROJECT_DIR$/src/cs3500/hw02/pile/AbstractPile.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/src/cs3500/hw02/Pile/PileType.java" afterPath="$PROJECT_DIR$/src/cs3500/hw02/PileType.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/Card/Card.class" afterPath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/Card/Card.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/Card/CardSuit$1.class" afterPath="$PROJECT_DIR$/out/production/OOD-Assignment-2/cs3500/hw02/Card/CardSuit$1.class" />
@@ -719,7 +734,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1494947438352</updated>
-      <workItem from="1494947441306" duration="51388000" />
+      <workItem from="1494947441306" duration="51563000" />
     </task>
     <servers />
   </component>
@@ -756,11 +771,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51388000" />
+    <option name="totallyTimeSpent" value="51563000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="834" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -772,15 +786,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884097" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19272237" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19272237" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884097" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32884097" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17811158" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17811158" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884097" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19098713" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19098713" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />

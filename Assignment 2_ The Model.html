@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)https://course.ccs.neu.edu/cs3500/hw_02_assignment.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=0.8"><title>Assignment 2: The Model</title><link rel="stylesheet" type="text/css" href="./Assignment 2_ The Model_files/scribble.css" title="default"><link rel="stylesheet" type="text/css" href="./Assignment 2_ The Model_files/screen.css" title="default"><link rel="stylesheet" type="text/css" href="./Assignment 2_ The Model_files/manual-racket.css" title="default"><script type="text/javascript" src="./Assignment 2_ The Model_files/scribble-common.js"></script><script type="text/javascript" src="./Assignment 2_ The Model_files/manual-racket.js"></script><!--[if IE 6]><style type="text/css">.SIEHidden { overflow: hidden; }</style><![endif]--><script src="./Assignment 2_ The Model_files/jquery.min.js"></script><script>$.noConflict();</script><script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+    displayMath: [ ["$$","$$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});</script><script src="./Assignment 2_ The Model_files/MathJax.js" id=""></script><script src="./Assignment 2_ The Model_files/codemirror.js"></script><script src="./Assignment 2_ The Model_files/runmode.js"></script><script src="./Assignment 2_ The Model_files/scheme.js"></script><script src="./Assignment 2_ The Model_files/clike.js"></script><link type="text/css" rel="stylesheet" href="./Assignment 2_ The Model_files/screen.css"><script type="text/javascript">jQuery(document).ready(function($) {
+  $(function(){
+    $("code.sourceCode").each(function(_, code) {
+      if ($(code).data("lang")) {
+        CodeMirror.runMode($(code).text(), $(code).data("lang"), code);
+        $(code).addClass("cm-s-default");
+      }
+    });
+  });
+});</script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><body id="scribble-racket-lang-org"><div id="MathJax_Message" style="display: none;"></div><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tbody><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">►</a></td><td></td><td><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html" class="tocviewselflink" data-pltdoc="x"><span class="AssignmentNum">Assignment 2:</span> The Model</a></td></tr></tbody></table></div><div class="tocviewsublistonly" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tbody><tr><td align="right">1&nbsp;</td><td><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Purpose%29" class="tocviewlink" data-pltdoc="x">Purpose</a></td></tr><tr><td align="right">2&nbsp;</td><td><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.The_game_of_.Freecell%29" class="tocviewlink" data-pltdoc="x">The game of Freecell</a></td></tr><tr><td align="right">3&nbsp;</td><td><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Building_.Freecell%29" class="tocviewlink" data-pltdoc="x">Building Freecell</a></td></tr><tr><td align="right">4&nbsp;</td><td><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Package._management%29" class="tocviewlink" data-pltdoc="x">Package Management</a></td></tr><tr><td align="right">5&nbsp;</td><td><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.List_of_.Deliverables%29" class="tocviewlink" data-pltdoc="x">List of Deliverables</a></td></tr><tr><td align="right">6&nbsp;</td><td><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Grading_.Standards%29" class="tocviewlink" data-pltdoc="x">Grading Standards</a></td></tr><tr><td align="right">7&nbsp;</td><td><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Submission%29" class="tocviewlink" data-pltdoc="x">Submission</a></td></tr></tbody></table></div></div></div><div class="tocsub"><table class="tocsublist" cellspacing="0"><tbody><tr><td><span class="tocsublinknumber"></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._%29" class="tocsubseclink" data-pltdoc="x"><span class="AssignmentNum">Assignment 2:</span> The Model</a></td></tr><tr><td><span class="tocsublinknumber">1<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Purpose%29" class="tocsubseclink" data-pltdoc="x">Purpose</a></td></tr><tr><td><span class="tocsublinknumber">2<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.The_game_of_.Freecell%29" class="tocsubseclink" data-pltdoc="x">The game of Freecell</a></td></tr><tr><td><span class="tocsublinknumber">2.1<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Context%29" class="tocsubseclink" data-pltdoc="x">Context</a></td></tr><tr><td><span class="tocsublinknumber">2.1.1<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Game_play%29" class="tocsubseclink" data-pltdoc="x">Game play</a></td></tr><tr><td><span class="tocsublinknumber">3<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Building_.Freecell%29" class="tocsubseclink" data-pltdoc="x">Building Freecell</a></td></tr><tr><td><span class="tocsublinknumber">3.1<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Cards%29" class="tocsubseclink" data-pltdoc="x">Cards</a></td></tr><tr><td><span class="tocsublinknumber">3.2<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.The_.Freecell_operations%29" class="tocsubseclink" data-pltdoc="x">The Freecell operations</a></td></tr><tr><td><span class="tocsublinknumber">3.3<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Examples%29" class="tocsubseclink" data-pltdoc="x">Examples</a></td></tr><tr><td><span class="tocsublinknumber">3.4<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Your_.Implementation%29" class="tocsubseclink" data-pltdoc="x">Your Implementation</a></td></tr><tr><td><span class="tocsublinknumber">3.5<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Testing%29" class="tocsubseclink" data-pltdoc="x">Testing</a></td></tr><tr><td><span class="tocsublinknumber">4<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Package._management%29" class="tocsubseclink" data-pltdoc="x">Package Management</a></td></tr><tr><td><span class="tocsublinknumber">5<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.List_of_.Deliverables%29" class="tocsubseclink" data-pltdoc="x">List of Deliverables</a></td></tr><tr><td><span class="tocsublinknumber">6<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Grading_.Standards%29" class="tocsubseclink" data-pltdoc="x">Grading Standards</a></td></tr><tr><td><span class="tocsublinknumber">7<tt>&nbsp;</tt></span><a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Submission%29" class="tocsubseclink" data-pltdoc="x">Submission</a></td></tr></tbody></table></div></div><div class="maincolumn"><div class="main"><div class="versionbox"><span class="versionNoNav">6.8</span></div><h2><a name="(part._)"></a><span class="AssignmentNum">Assignment 2:</span> The Model</h2><p></p><h4 class="due">Due: Fri 05/19 at 8:59pm; self-evaluation due Sat 05/20 at 8:59pm</h4><p></p><p></p><p class="git-clone"><code><span class="kw">Starter files: </span><a href="https://course.ccs.neu.edu/cs3500/hw/02/code.zip">code.zip</a></code></p><p></p><p><span style="font-weight: bold">Note: The description may make assignments seem longer than they are. Distilling the
+description to make a list of all the things you are actually supposed to do will go a long way
+in having a good plan to tackle it. Read the description several times to confirm this
+list before acting on it!</span></p><h3>1<tt>&nbsp;</tt><a name="(part._.Purpose)"></a>Purpose</h3><p>The primary goal of this assignment is to practice implementing an interface
+based on given specifications, and by choosing an appropriate data
+representation that helps in providing the functionality promised by the
+interface.</p><p><span style="font-weight: bold">Please ensure
+all of your <span style="font-style: italic">source</span> code is in the <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">cs3500</span>.<span class="cm-variable">hw02</span></code></span> package.</span> (See <a href="https://course.ccs.neu.edu/cs3500/hw_02_assignment.html#%28part._.Package._management%29" data-pltdoc="x">Package Management</a> below.)</p><h3>2<tt>&nbsp;</tt><a name="(part._.The_game_of_.Freecell)"></a>The game of Freecell</h3><h4>2.1<tt>&nbsp;</tt><a name="(part._.Context)"></a>Context</h4><p><a href="https://play.google.com/store/apps/details?id=net.runserver.freecell_free"><img src="./Assignment 2_ The Model_files/freecell.png" alt="" width="600" height="338" title="Classic Freecell from Google Play store"></a></p><p>In the next three homeworks, you will implement the popular single-player game “Freecell”.
+Freecell is a Solitaire-type game, which uses the regular deck of 52 suit-value
+cards.  There are four suits: clubs (♣), diamonds (♦),
+hearts (♥), and spades (♠).  Hearts and diamonds are
+colored red; clubs and spades are colored black.  There are thirteen values:
+ace (written <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">A</span></code></span>), two through ten (written <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-number">2</span></code></span> through <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-number">10</span></code></span>),
+jack (<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">J</span></code></span>), queen (<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">Q</span></code></span>) and king (<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">K</span></code></span>).  In Freecell, aces are
+considered “low”, or less than a two.  (In other games, they’re considered
+“high”, or greater than a king.)</p><p>The game play is divided among three types of <span style="font-style: italic">card piles</span>. First, there
+are four <span style="font-style: italic">foundation</span> piles, one for each suit (shown in the top right in
+figure above), and indexed 1 through 4. These four piles are initially empty,
+and the goal of Freecell is to collect all cards of all suits in their
+respective foundation piles. A card can be added to a foundation pile if and
+only if its suit matches that of the pile, and its value is one more than that
+of the card currently on top of the pile (i.e. the next card in foundation pile
+2 in the figure above can only be 3♣).  If a foundation pile is
+currently empty, any ace can be added to it: there is no required ordering of
+suits in the foundation piles.</p><p>The second type of pile is the <span style="font-style: italic">cascade pile</span> (the eight piles in the
+bottom of figure above), also indexed starting from 1.  Usually a game of
+Freecell has eight cascade piles, but our game will allow as few as four.
+Because the initial deal of the game is shuffled (see below), a cascade pile
+may initially contain cards in any order. However, a card from some pile can be
+<span style="font-style: italic">moved</span> to the end of a cascade pile if and only if its color is different
+from that of the currently last card, and its value is exactly one less than
+that of the currently last card (e.g. in the figure above, the next card in
+cascade pile 1 can be 4♦ or 4♥ while the next card in
+cascade pile 3 can be 10♠ or 10♣).  This sequence of
+decreasing-value, alternating-color cards is called a <span style="font-style: italic">build</span>.  (Different
+variants of Freecell, or other solitaire games, differ primarily in what builds
+are permitted.)</p><p>Finally, the third type of pile is the <span style="font-style: italic">open pile</span> (top left in figure
+above). Usually a game of Freecell has four open piles, but our game will allow
+as few as one. An open pile may contain at most one card. An open pile is
+usually used as a temporary buffer during the game to hold cards.</p><h5>2.1.1<tt>&nbsp;</tt><a name="(part._.Game_play)"></a>Game play</h5><p>Play starts by dealing the full deck of 52 cards among the cascade piles, in a
+round-robin fashion (e.g. in a game with eight cascade piles, pile 1 will have
+card indices 0, 8, 16,..., pile 2 will have card indices 1, 9, 17, ... and so
+on (assuming card indices in the deck begin at 0). The player then moves cards
+between piles, obeying the rules above. The objective of the game is to collect
+all cards in the four foundation piles, at which stage the game is over.</p><p>In this homework you will write the model for this game. The model will
+maintain the game state and allow a client to start a game and move cards.</p><h3>3<tt>&nbsp;</tt><a name="(part._.Building_.Freecell)"></a>Building Freecell</h3><h4>3.1<tt>&nbsp;</tt><a name="(part._.Cards)"></a>Cards</h4><p>Start by modeling a card in the game of Freecell. You are free to name the class
+and its methods whatever you want.</p><h4>3.2<tt>&nbsp;</tt><a name="(part._.The_.Freecell_operations)"></a>The Freecell operations</h4><p>In order to play the game, one would expect the following operations: get a valid deck
+of cards, start a new game, and make a move. These operations have been specified and
+documented in the provided <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">FreecellOperations</span><span class="cm-operator">&lt;</span><span class="cm-variable">K</span><span class="cm-operator">&gt;</span></code></span> interface. In this interface, <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">K</span></code></span> is
+the card type (because we do not know in advance what you may choose to name your card type).
+You are <span style="font-weight: bold">not</span> allowed to change the interface in any way!</p><p>A short explanation of the methods in the interface follows:</p><ul><li><p><span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">getDeck</span></code></span> should return a valid deck of cards that can be used to play a
+game of Freecell.</p></li><li><p><span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">startGame</span>(<span class="cm-variable">List</span><span class="cm-operator">&lt;</span><span class="cm-variable">K</span><span class="cm-operator">&gt;</span> <span class="cm-variable">deck</span>, <span class="cm-keyword">int</span> <span class="cm-variable">numCascades</span>, <span class="cm-keyword">int</span> <span class="cm-variable">numOpens</span>, <span class="cm-keyword">boolean</span> <span class="cm-variable">shuffle</span>)</code></span> takes a deck and
+starts a new game of Freecell with the specified number of cascade and open piles.
+If shuffled is <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-atom">true</span></code></span> it shuffles the specified deck before dealing, otherwise it deals
+the deck as-is. This method throws an <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">IllegalArgumentException</span></code></span> if any of the parameters
+are invalid.</p></li><li><p><span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">move</span>(<span class="cm-variable">PileType</span> <span class="cm-variable">sourceType</span>, <span class="cm-keyword">int</span> <span class="cm-variable">sourcePileNumber</span>, <span class="cm-keyword">int</span> <span class="cm-variable">cardIndex</span>, <span class="cm-variable">PileType</span> <span class="cm-variable">destinationType</span>,
+<span class="cm-keyword">int</span> <span class="cm-variable">destPileNumber</span>)</code></span> is called to move a card according to the rules of the game.
+Specifically It moves cards
+beginning at index <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">cardIndex</span></code></span> from the pile number
+<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">sourcePileNumber</span></code></span> of type <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">sourceType</span></code></span> to the pile number
+<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">destPileNumber</span></code></span> of type <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">destinationType</span></code></span>. <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">PileType</span></code></span> (provided to you) is
+an enumerated type that is helpful in specifying the type of pile.</p><p>All indices and pile numbers in this method start at 0 —<wbr> e.g. in the figure above, to move
+4♦ in cascade pile 8 to cascade pile 1 this method would be
+called as <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">move</span>(<span class="cm-variable">PileType</span>.<span class="cm-variable">CASCADE</span>, <span class="cm-number">7</span>, <span class="cm-number">4</span>, <span class="cm-variable">PileType</span>.<span class="cm-variable">CASCADE</span>, <span class="cm-number">0</span>)</code></span>. This method
+throws an <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">IllegalArgumentException</span></code></span> if the move is not possible.</p></li><li><p><span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">getGameState</span></code></span> returns the current state of the game as a <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">String</span></code></span> object (see description below).</p></li><li><p><span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">isGameOver</span></code></span> returns <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-atom">true</span></code></span> if the game is over, and <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-atom">false</span></code></span> otherwise.</p></li></ul><h4>3.3<tt>&nbsp;</tt><a name="(part._.Examples)"></a>Examples</h4><p>You must check that your <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">FreecellModel</span></code></span> implementation of the
+<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">FreecellOperations</span></code></span> interface works as specified. Please review the
+<a href="https://course.ccs.neu.edu/cs3500/testing.html" data-pltdoc="x">testing recommendations</a>. Since you are
+testing the public-facing behavior of this interface, following those
+guidelines means that you should <span style="font-style: italic"><span style="font-weight: bold">not</span></span> place this testing code in
+the <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">cs3500</span>.<span class="cm-variable">hw02</span></code></span> package, but rather place it in the <span style="font-style: italic">default</span>
+package.  Nothing in your tests should rely on implementation details at all.</p><h4>3.4<tt>&nbsp;</tt><a name="(part._.Your_.Implementation)"></a>Your Implementation</h4><p>Implement the <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">FreecellOperations</span><span class="cm-operator">&lt;</span><span class="cm-variable">K</span><span class="cm-operator">&gt;</span></code></span> interface in a class called
+<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">FreecellModel</span></code></span>.  You will need to:</p><div class="hw"><ol><li><p>Design a representation for the game skeleton. Think
+carefully about what fields and types you need to represent the game
+state, and how possible values of the fields correspond to game
+states.</p></li><li><p></p><p><span style="font-weight: bold">Cards:</span>
+</p><ul><li><p>A correct deck of cards for Freecell contains 52 cards
+with ace, 2, ..., jack, queen, king in each of clubs, diamonds, hearts and
+spades) as a <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">List</span></code></span> of card objects. Thus a deck is <span style="font-weight: bold">invalid</span>
+for this game if it does not have 52
+cards, or if there are duplicate cards, or if there are invalid cards
+(invalid suit or invalid number).</p></li><li><p>A client for your Card implementation should be able
+         to use its <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">toString</span></code></span> method to print them. Cards should be printed
+         as their value, followed by the suit symbol above: for example, <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-string">"A♦"</span></code></span> or
+<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-string">"3♣"</span></code></span>.</p></li></ul><p></p></li><li><p><span style="font-weight: bold">Starting the game:</span> The <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">startGame</span></code></span> method should start a new game of Freecell by
+distributing the deck in round-robin fashion as described above (in Section “Game Play”). It is
+possible that some cascade piles have more cards than others, and this is
+OK. This method should first check if the inputs are valid (valid deck, at least
+4 cascade piles and at least 1 open pile). If shuffle is <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-atom">true</span></code></span> then
+the cascade piles should look different compared to if it was
+<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-atom">false</span></code></span>.</p></li><li><p><span style="font-weight: bold">The game state:</span> The <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">getGameState</span></code></span> method may be used to print the game state in the
+format illustrated below. The details of the output are described in the
+Javadoc for this method in the provided code. The following shows the
+output corresponding to the screenshot above:</p><p></p><pre>F1: A♠
+F2: A♣, 2♣
+F3: A♥, 2♥
+F4:
+O1:
+O2:
+O3:
+O4: 8♦
+C1: K♠, 3♦, K♥, 8♠, 5♥, 5♦, 5♠
+C2: 4♣, 5♣, 4♠, 9♦, K♣
+C3: 2♠, 9♠, 8♣, 10♦, 8♥, Q♠, J♦
+C4: 10♥, J♠, Q♦, 6♣, 3♣, J♣
+C5: 6♦, 3♥, 10♠, Q♥, 6♠
+C6: 9♣, 7♣, 7♥, K♦, 4♥, 3♠, 2♦
+C7: Q♣, J♥, 10♣, 9♥
+C8: 7♦, 7♠, 6♥, A♦, 4♦</pre><p></p><p><span style="font-weight: bold">NOTE:</span> The string you return should not have a newline at the end of
+the last line, and there should be no spaces after the colons for O1, O2 or
+O3. (Try selecting and highlighting this text in your browser, to see exactly where the lines end.)</p><p>If a game has not begun, <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">getGameState</span></code></span> should return an empty string.</p></li><li><p><span style="font-weight: bold">Move:</span> The <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">move</span></code></span> method should work to move only one card at a
+time. This means that only the last card in a cascade pile can be moved
+to another pile. Any other kind of move is invalid for this implementation.</p></li><li><p><span style="font-weight: bold">Constructing the model:</span> Your class should have a <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-keyword">public</span></code></span> default constructor (i.e., with zero
+arguments) for your class, and also any other constructors you think are
+needed. Reminder: A constructor is a good place to initialize any instance
+variables.</p></li></ol><p>Be sure to properly document your code with Javadoc as appropriate.  Method
+implementations that inherit Javadoc need not provide their own unless they
+implement something different or in addition to what is specified in the
+inherited documentation.</p></div><p>File <code>Hw02TypeChecks.java</code>
+contains a small class designed to help you detect when your code
+may not compile against the grading tests. In particular, if your
+project cannot compile while <code>Hw02TypeChecks.java</code>—<wbr>unmodified!—<wbr>is a
+part of it, then it won’t compile for the course staff either.</p><h4>3.5<tt>&nbsp;</tt><a name="(part._.Testing)"></a>Testing</h4><p>Read the <a href="https://course.ccs.neu.edu/cs3500/testing.html" data-pltdoc="x">testing recommendations</a> again.</p><h3>4<tt>&nbsp;</tt><a name="(part._.Package._management)"></a>Package Management</h3><p>To make sure that your packages are in the correct layout, you should tell
+IntelliJ to do the following.  Do this early, before you’ve written much code,
+to ensure that your files wind up in the right locations automatically, instead
+of having to fix it afterward:</p><ul><li><p>When you create a new project, you should see something like this:</p><p><img src="./Assignment 2_ The Model_files/new-project.png" alt="" width="426" height="185"></p><p>Notice that the <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">src</span></code></span> directory is marked blue, which means IntelliJ
+believes that this directory contains the source files of your project.  To
+create a new package, right-click on the <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">src</span></code></span> directory, select <span style="font-style: italic">New
+-&gt; Package</span>:</p><p><img src="./Assignment 2_ The Model_files/new-package.png" alt="" width="773" height="239"></p><p>In the dialog box that pops up, enter the new package name,
+e.g. <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">cs3500</span>.<span class="cm-variable">hw02</span></code></span>.</p><p><img src="./Assignment 2_ The Model_files/created-package.png" alt="" width="419" height="204"></p></li><li><p>To create new files within a particular package, right-click on the
+package folder and select <span style="font-style: italic">New -&gt; Java Class</span>.  If you want to create a
+new file in the <span style="font-style: italic">default</span> package, then select the <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">src</span></code></span> directory
+itself.</p></li><li><p>To create a test directory, right-click on the <span style="font-style: italic">project</span> itself, and
+select <span style="font-style: italic">New -&gt; Directory</span>:</p><p><img src="./Assignment 2_ The Model_files/new-directory.png" alt="" width="816" height="204"></p><p>In the dialog box that pops up, enter “test” as the name.  Notice that the
+directory is marked brown, meaning that it’s nothing special to IntelliJ, yet.
+Right-click on the directory, select <span style="font-style: italic">Mark Directory As -&gt; Test Sources
+root</span>:</p><p><img src="./Assignment 2_ The Model_files/mark-tests.png" alt="" width="753" height="357"></p><p>The directory will now turn green, indicating that IntelliJ believes your tests
+should live in this directory.</p></li><li><p>The <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">src</span></code></span> and <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">test</span></code></span> directories can parallel each other in
+structure.  Conceptually, IntelliJ will combine them before compiling and
+running your tests, so if you have a <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">cs3500</span>.<span class="cm-variable">hw02</span></code></span> package within the
+<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">test</span></code></span> directory, the files will effectively be in the same directory as
+<span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">cs3500</span>.<span class="cm-variable">hw02</span></code></span> in the <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">src</span></code></span> directory.  However, keeping your sources
+and tests separated is always a good idea, so you don’t inadvertently release
+your tests as part of your source!</p></li></ul><h3>5<tt>&nbsp;</tt><a name="(part._.List_of_.Deliverables)"></a>List of Deliverables</h3><ul><li><p>Your card class(es)</p></li><li><p>The interface (<code>FreecellOperations.java</code>)</p></li><li><p>Implementation of the interface(<code>FreecellModel.java</code>)</p></li><li><p>any additional classes you saw fit to write</p></li><li><p>tests in a JUnit test class</p></li></ul><p><span style="font-weight: bold">Again, please ensure all of your project’s <span style="font-style: italic">source</span> is in the <span class="sourceCode"><code data-lang="text/x-java" class="sourceCode cm-s-default"><span class="cm-variable">cs3500</span>.<span class="cm-variable">hw02</span></code></span>
+package. The autograder will give you an automatic 0 if it cannot compile your
+code! Place your tests in the default package.</span></p><h3>6<tt>&nbsp;</tt><a name="(part._.Grading_.Standards)"></a>Grading Standards</h3><p></p><p>For this assignment, you will be graded on
+</p><ul><li><p>whether your code implements the specification (functional correctness),</p></li><li><p>the appropriateness of your chosen representation,</p></li><li><p>the clarity of your code,</p></li><li><p>the comprehensiveness of your test coverage</p></li><li><p>how well you have documented your code</p></li><li><p>how well you follow the
+<a href="https://google.github.io/styleguide/javaguide.html">style guide</a>.</p></li></ul><p></p><h3>7<tt>&nbsp;</tt><a name="(part._.Submission)"></a>Submission</h3><p></p><p><span style="font-weight: bold">Wait!</span> Please read the assignment again and verify that you have not forgotten anything!</p><p></p><p>Please compress the src/ and test/ folders into a zip file and submit it. After submission, check your submitted code
+to ensure that you see two top-level folders: src/ and test/. If you see anything else, you did not create the zip file correctly!</p><p>Please submit your assignment to <a href="https://handins.ccs.neu.edu/"><span class="url">https://handins.ccs.neu.edu/</span></a> by the above deadline.
+Then be sure to complete your self evaluation by the second deadline.</p></div></div><div id="contextindicator">&nbsp;</div></body></html>
